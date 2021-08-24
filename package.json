@@ -1,0 +1,34 @@
+{
+  "name": "workflow-sdk",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prepare": "yarn run build",
+    "build": "tsc"
+  },
+  "keywords": [
+    "sdk",
+    "workflow",
+    "altu",
+    "smarkio",
+    "d1",
+    "siebel"
+  ],
+  "author": "Emerson-Valentim",
+  "license": "",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/parser": "^4.29.3",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.1",
+    "eslint-plugin-prettier": "^3.4.1",
+    "prettier": "^2.3.2"
+  }
+}
