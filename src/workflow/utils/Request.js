@@ -6,11 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.signIn = void 0;
 var axios_1 = __importDefault(require("axios"));
 function signIn(_a) {
-    var username = _a.username, password = _a.password, url = _a.url;
+    var email = _a.email, password = _a.password, baseURL = _a.baseURL;
     return axios_1.default({
-        url: url,
+        baseURL: baseURL,
+        url: '/cognito/user/signIn',
+        method: 'POST',
         data: {
-            username: username,
+            email: email,
             password: password
         }
     });

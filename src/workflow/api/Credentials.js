@@ -5,18 +5,19 @@ var utils_1 = require("../utils");
 var Credentials = /** @class */ (function () {
     /**
      *
-     * @param username workflows.d1.cx username
+     * @param email workflows.d1.cx email
      * @param password workflows.d1.cx password
-     * @param baseUrl workflows.d1.cx url
+     * @param baseURL workflows.d1.cx url without last forward slash
+     * @returns This methods return Workflow credentials token
      */
     function Credentials(_a) {
-        var username = _a.username, password = _a.password, url = _a.url;
-        this.username = username;
+        var email = _a.email, password = _a.password, baseURL = _a.baseURL;
+        this.email = email;
         this.password = password;
-        this.url = url;
+        this.baseURL = baseURL.replace(/\/$/, '');
     }
     Credentials.prototype.getToken = function () {
-        return utils_1.signIn({ username: this.username, password: this.password, url: this.url });
+        return utils_1.signIn({ email: this.email, password: this.password, baseURL: this.baseURL });
     };
     return Credentials;
 }());
