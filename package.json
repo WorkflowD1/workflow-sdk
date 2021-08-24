@@ -1,5 +1,5 @@
 {
-  "name": "@workflow-d1/workflow-sdk",
+  "name": "@workflowd1/workflow-sdk",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
