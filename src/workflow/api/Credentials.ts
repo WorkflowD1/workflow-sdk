@@ -1,30 +1,31 @@
 import { signIn } from "../utils"
 
 export interface CredentialsConfig {
-    username: string
+    email: string
     password: string
-    url: string
+    baseURL: string
 }
 
 export class Credentials {
 
-    private username: string
+    private email: string
     private password: string
-    private url: string
+    private baseURL: string
 
     /**
      * 
-     * @param username workflows.d1.cx username 
+     * @param email workflows.d1.cx email 
      * @param password workflows.d1.cx password
-     * @param url workflows.d1.cx url
+     * @param baseURL workflows.d1.cx url without last forward slash
+     * @returns This methods return Workflow credentials token
      */
-    constructor({ username, password, url }: CredentialsConfig) {
-        this.username = username
+    constructor({ email, password, baseURL }: CredentialsConfig) {
+        this.email = email
         this.password = password
-        this.url = url
+        this.baseURL = baseURL.replace(/\/$/, '')
     }
 
     public getToken() {
-        return signIn({username: this.username, password: this.password, url: this.url})
+        return signIn({email: this.email, password: this.password, baseURL: this.baseURL})
     }
 }

@@ -2,11 +2,13 @@ import request from 'axios'
 
 import { CredentialsConfig } from '..';
 
-export function signIn({username, password, url}: CredentialsConfig) {
+export function signIn({email, password, baseURL}: CredentialsConfig) {
     return request({
-        url,
+        baseURL,
+        url: '/cognito/user/signIn',
+        method: 'POST',
         data: {
-            username,
+            email,
             password
         }
     })
