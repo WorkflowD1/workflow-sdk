@@ -1,8 +1,13 @@
-import request from 'axios'
+import request, { AxiosPromise } from 'axios'
 
 import { CredentialsConfig } from '..';
 
-export function signIn({email, password, baseURL}: CredentialsConfig) {
+export interface Token {
+    token: string,
+    expiration: number
+}
+
+export function signIn({email, password, baseURL}: CredentialsConfig): AxiosPromise<Token> {
     return request({
         baseURL,
         url: '/cognito/user/signIn',

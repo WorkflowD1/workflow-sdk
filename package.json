@@ -1,6 +1,6 @@
 {
   "name": "@workflowd1/workflow-sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -19,9 +19,11 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
+    "redis": "^3.1.2",
     "typescript": "^4.3.5"
   },
   "devDependencies": {
+    "@types/redis": "^2.8.31",
     "@typescript-eslint/eslint-plugin": "^4.29.3",
     "@typescript-eslint/parser": "^4.29.3",
     "eslint": "^7.32.0",
