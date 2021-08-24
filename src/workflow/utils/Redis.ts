@@ -20,16 +20,21 @@ export class Redis {
     }
 
     public retrieveToken(): Promise<string | null> {
-        const getAsync = promisify(this.client.get)
-        return getAsync(this.key)
+        return this.getRedisKeyAsync()
     }
 
-    public hasToken(): boolean {
-        return this.client.get(this.key!)
+    public async hasToken(): Promise<boolean | null> {
+        const token = await this.getRedisKeyAsync()
+        return !!token
     }
 
     public updateToken(token: string, expiration: number) {
         this.client.set(this.key, token)
         this.client.expire(this.key, expiration)
+    }
+
+    private getRedisKeyAsync() {
+        const getAsync = promisify(this.client.get).bind(this.client)
+        return getAsync(this.key)
     }
 }

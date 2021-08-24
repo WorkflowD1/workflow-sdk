@@ -35,6 +35,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Credentials = void 0;
 var utils_1 = require("../utils");
@@ -46,16 +57,19 @@ var Credentials = /** @class */ (function () {
      * @param baseURL workflows.d1.cx url without last forward slash
      * @returns This methods return Workflow credentials token
      */
-    function Credentials(_a, _b) {
+    function Credentials(_a, options) {
         var email = _a.email, password = _a.password, baseURL = _a.baseURL;
-        var redis = _b.redis;
         this.email = email;
         this.password = password;
         this.baseURL = baseURL.replace(/\/$/, '');
-        this.redis = utils_1.Redis.getInstance(redis);
+        if (options === null || options === void 0 ? void 0 : options.redis) {
+            var redis = options.redis;
+            var key = redis.key, redisClientOptions = __rest(redis, ["key"]);
+            this.redis = utils_1.Redis.getInstance(redisClientOptions, key);
+        }
         this.getToken();
     }
-    Credentials.prototype.getInstance = function (credentials, options) {
+    Credentials.getInstance = function (credentials, options) {
         if (!Credentials.instance) {
             Credentials.instance = new Credentials(credentials, options);
         }
@@ -66,30 +80,45 @@ var Credentials = /** @class */ (function () {
             var _a, token, expiration;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0:
-                        if (!!this.isTokenValid()) return [3 /*break*/, 2];
-                        return [4 /*yield*/, utils_1.signIn({ email: this.email, password: this.password, baseURL: this.baseURL })];
+                    case 0: return [4 /*yield*/, this.isTokenValid()];
                     case 1:
+                        if (!!(_b.sent())) return [3 /*break*/, 3];
+                        return [4 /*yield*/, utils_1.signIn({ email: this.email, password: this.password, baseURL: this.baseURL })];
+                    case 2:
                         _a = (_b.sent()).data, token = _a.token, expiration = _a.expiration;
                         this.setToken(token, expiration);
-                        _b.label = 2;
-                    case 2: return [2 /*return*/, Credentials.token];
+                        _b.label = 3;
+                    case 3: return [2 /*return*/, this.token];
                 }
             });
         });
     };
     Credentials.prototype.isTokenValid = function () {
-        var redisInstance = '';
-        if (this.redis && redisInstance.hasToken()) {
-            return redisInstance.findToken();
-        }
-        return false;
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this.redis;
+                        if (!_a) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.redis.hasToken()];
+                    case 1:
+                        _a = (_b.sent());
+                        _b.label = 2;
+                    case 2:
+                        if (_a) {
+                            return [2 /*return*/, true];
+                        }
+                        return [2 /*return*/, false];
+                }
+            });
+        });
     };
     Credentials.prototype.setToken = function (token, expiration) {
         if (this.redis) {
-            utils_1.Redis.updateToken(token, expiration);
+            this.redis.updateToken(token, expiration);
         }
-        Credentials.token = token;
+        this.token = token;
     };
     return Credentials;
 }());

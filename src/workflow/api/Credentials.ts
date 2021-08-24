@@ -21,7 +21,7 @@ export class Credentials {
 
     private redis?: Redis
 
-    private static token: string
+    private token: string | undefined
     private static instance: Credentials
 
     /**
@@ -31,12 +31,13 @@ export class Credentials {
      * @param baseURL workflows.d1.cx url without last forward slash
      * @returns This methods return Workflow credentials token
      */
-    private constructor({ email, password, baseURL }: CredentialsConfig, { redis }: CredentialsOptions) {
+    private constructor({ email, password, baseURL }: CredentialsConfig, options: CredentialsOptions | null) {
         this.email = email
         this.password = password
         this.baseURL = baseURL.replace(/\/$/, '')
 
-        if(redis) {
+        if(options?.redis) {
+            const { redis } = options
             const { key, ...redisClientOptions } = redis
             this.redis = Redis.getInstance(redisClientOptions, key)
         }
@@ -44,7 +45,7 @@ export class Credentials {
         this.getToken()
     }
 
-    public getInstance(credentials: CredentialsConfig, options: CredentialsOptions) {
+    public static getInstance(credentials: CredentialsConfig, options: CredentialsOptions) {
         if(!Credentials.instance) {
             Credentials.instance = new Credentials(credentials, options)
         }
@@ -52,15 +53,15 @@ export class Credentials {
     }
 
     public async getToken(): Promise<string> {
-        if(!this.isTokenValid()) {
+        if(!(await this.isTokenValid())) {
             const { data: { token, expiration } } = await signIn({email: this.email, password: this.password, baseURL: this.baseURL})
             this.setToken(token, expiration)
         }
-        return Credentials.token
+        return this.token!
     }
 
-    private isTokenValid(): boolean {
-        if(this.redis && this.redis.hasToken()) {
+    private async isTokenValid(): Promise<boolean> {
+        if(this.redis && await this.redis.hasToken()) {
             return true
         }
         return false
@@ -70,6 +71,6 @@ export class Credentials {
         if(this.redis) {
             this.redis.updateToken(token, expiration)
         }
-        Credentials.token = token
+        this.token = token
     }
 }
