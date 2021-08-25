@@ -8,102 +8,51 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Redis = void 0;
-var redis_1 = require("redis");
-var util_1 = require("util");
-var Redis = /** @class */ (function () {
-    function Redis(options, key) {
+const redis_1 = require("redis");
+const util_1 = require("util");
+class Redis {
+    constructor(options, key) {
         this.key = key;
         this.client = redis_1.createClient(options);
     }
-    Redis.getInstance = function (options, key) {
+    static getInstance(options, key) {
         if (!Redis.instance) {
             return new Redis(options, key);
         }
         return Redis.instance;
-    };
-    Redis.prototype.retrieveToken = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var token;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getRedisKeyAsync()];
-                    case 1:
-                        token = _a.sent();
-                        return [2 /*return*/, token];
-                }
-            });
+    }
+    retrieveToken() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const token = yield this.getRedisKeyAsync();
+            return token;
         });
-    };
-    Redis.prototype.updateToken = function (token, expiration) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.setRedisTokenAsync(token)];
-                    case 1:
-                        _a.sent();
-                        return [4 /*yield*/, this.expireRedisTokenAsync(expiration)];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
+    }
+    updateToken(token, expiration) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.setRedisTokenAsync(token);
+            yield this.expireRedisTokenAsync(expiration);
         });
-    };
-    Redis.prototype.hasToken = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var token;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getRedisKeyAsync()];
-                    case 1:
-                        token = _a.sent();
-                        return [2 /*return*/, !!token];
-                }
-            });
+    }
+    hasToken() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const token = yield this.getRedisKeyAsync();
+            return !!token;
         });
-    };
-    Redis.prototype.getRedisKeyAsync = function () {
-        var getAsync = util_1.promisify(this.client.get).bind(this.client);
+    }
+    getRedisKeyAsync() {
+        const getAsync = util_1.promisify(this.client.get).bind(this.client);
         return getAsync(this.key);
-    };
-    Redis.prototype.setRedisTokenAsync = function (token) {
-        var setAsync = util_1.promisify(this.client.set).bind(this.client);
+    }
+    setRedisTokenAsync(token) {
+        const setAsync = util_1.promisify(this.client.set).bind(this.client);
         return setAsync(this.key, token);
-    };
-    Redis.prototype.expireRedisTokenAsync = function (expiration) {
-        var expireToken = util_1.promisify(this.client.expire).bind(this.client);
-        var seconds = expiration - Math.floor(new Date().getTime() / 1000);
+    }
+    expireRedisTokenAsync(expiration) {
+        const expireToken = util_1.promisify(this.client.expire).bind(this.client);
+        const seconds = expiration - Math.floor(new Date().getTime() / 1000);
         return expireToken(this.key, seconds);
-    };
-    return Redis;
-}());
+    }
+}
 exports.Redis = Redis;
