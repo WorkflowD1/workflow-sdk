@@ -1,2 +1,2 @@
-export * from './Request'
+export * from './WorkflowRequest'
 export * from './Redis'
