@@ -1,6 +1,6 @@
 import { CredentialsObject } from './../Credentials';
 import { MethodAuthentication } from '../../utils/Decorators';
-import { WorkflowRequest } from '../../utils/WorkflowRequest/';
+import { WorkflowRequest } from '../../utils';
 import { IdProperty } from '..';
 
 export interface CreateDocumentProperties {

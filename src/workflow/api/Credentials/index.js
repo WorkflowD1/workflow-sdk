@@ -21,8 +21,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Credentials = void 0;
-const WorkflowRequest_1 = require("../../utils/WorkflowRequest");
-const Redis_1 = require("../../utils/Redis");
+const utils_1 = require("../../utils");
+const common_1 = require("../../../common");
 class Credentials {
     /**
      *
@@ -38,7 +38,7 @@ class Credentials {
         if (options === null || options === void 0 ? void 0 : options.redis) {
             const { redis } = options;
             const { key } = redis, redisClientOptions = __rest(redis, ["key"]);
-            this.redis = Redis_1.Redis.getInstance(redisClientOptions, key);
+            this.redis = common_1.Redis.getInstance(redisClientOptions, key);
         }
     }
     getToken() {
@@ -46,7 +46,7 @@ class Credentials {
             if (this.redis && (yield this.isTokenValid())) {
                 return this.redis.retrieveToken();
             }
-            const { data: { token, expiration } } = yield WorkflowRequest_1.WorkflowRequest.signIn({ email: this.email, password: this.password, baseURL: this.baseURL });
+            const { data: { token, expiration } } = yield utils_1.WorkflowRequest.signIn({ email: this.email, password: this.password, baseURL: this.baseURL });
             yield this.setToken(token, expiration);
             return token;
         });

@@ -17,8 +17,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Document = void 0;
 const Decorators_1 = require("../../utils/Decorators");
-const WorkflowRequest_1 = require("../../utils/WorkflowRequest/");
-let Document = class Document extends WorkflowRequest_1.WorkflowRequest {
+const utils_1 = require("../../utils");
+let Document = class Document extends utils_1.WorkflowRequest {
     constructor(baseURL, credentialsObject) {
         super(baseURL, credentialsObject);
     }

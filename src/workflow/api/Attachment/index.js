@@ -16,9 +16,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Attachment = void 0;
-const WorkflowRequest_1 = require("../../utils/WorkflowRequest");
+const utils_1 = require("../../utils");
 const Decorators_1 = require("../../utils/Decorators");
-let Attachment = class Attachment extends WorkflowRequest_1.WorkflowRequest {
+let Attachment = class Attachment extends utils_1.WorkflowRequest {
     constructor(baseURL, credentialsObject) {
         super(baseURL, credentialsObject);
     }
