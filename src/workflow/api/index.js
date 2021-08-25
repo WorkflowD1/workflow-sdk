@@ -10,5 +10,15 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BaseWorkflowRequest = void 0;
+var utils_1 = require("../utils");
+var BaseWorkflowRequest = /** @class */ (function () {
+    function BaseWorkflowRequest(baseURL, credentials) {
+        this.baseURL = baseURL,
+            this.workflowRequest = new utils_1.WorkflowRequest(baseURL, credentials);
+    }
+    return BaseWorkflowRequest;
+}());
+exports.BaseWorkflowRequest = BaseWorkflowRequest;
 __exportStar(require("./Credentials"), exports);
 __exportStar(require("./Document"), exports);

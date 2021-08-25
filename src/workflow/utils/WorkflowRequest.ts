@@ -1,6 +1,7 @@
 import request, { AxiosPromise } from 'axios'
 
 import { CredentialsConfig } from '..';
+import { Credentials } from '../api';
 
 export interface Token {
   token: string,
@@ -8,6 +9,14 @@ export interface Token {
 }
 
 export class WorkflowRequest {
+
+  private baseURL: string
+  private credentials: Credentials
+
+  constructor(baseURL: string, credentials: Credentials) {
+    this.baseURL = baseURL
+    this.credentials = credentials
+  }
 
   public static signIn({ email, password, baseURL }: CredentialsConfig): AxiosPromise<Token> {
     return request({
@@ -21,34 +30,43 @@ export class WorkflowRequest {
     })
   }
 
-  public static documentCreate(data: any, token: string, baseURL: string) {
-    return request({
-      baseURL,
-      url: '/document/create',
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      data
-    })
+  public documentCreate(data: any) {
+    return this.request('/document/create', data)
   }
 
-  public static documentUpdate(data: any,  token: string, baseURL: string) {
-    return request({
-      baseURL,
-      url: '/document/updateById',
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      data
-    })
+  public documentUpdate(data: any) {
+    return this.request('/document/updateById', data)
   }
 
-  public static documentLoad(data: any,  token: string, baseURL: string) {
+  public documentLoad(data: any) {
+    return this.request('/document/filter', data)
+  }
+
+  public documentLoadById(data: any) {
+    return this.request('/document/loadById', data)
+  }
+
+  public attachmentUploadFile(data: any) {
+    return this.request('/attachment/upload/link', data)
+  }
+
+  public attachmentUpdateById(data: any) {
+    return this.request('/attachment/updateById', data)
+  }
+
+  public attachmentCreatePendency(data: any) {
+    return this.request('/attachment/createPendency', data)
+  }
+
+  public attachmentLoadPendency(data: any) {
+    return this.request('/attachment/loadPendency', data)
+  }
+
+  private async request(url: string, data: any) {
+    const token = await this.credentials.getToken()
     return request({
-      baseURL,
-      url: '/document/filter',
+      baseURL: this.baseURL,
+      url,
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`

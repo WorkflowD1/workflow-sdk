@@ -1,4 +1,4 @@
-import { createClient, ClientOpts, RedisClient } from "redis";
+import { createClient, ClientOpts, RedisClient } from 'redis';
 import { promisify } from 'util'
 
 export class Redis {
