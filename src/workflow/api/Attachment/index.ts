@@ -1,6 +1,6 @@
-import { IdProperty, CredentialsObject } from "."
-import { WorkflowRequest } from "../utils"
-import { MethodAuthentication } from "../utils/Decorators"
+import { IdProperty, CredentialsObject } from ".."
+import { WorkflowRequest } from "../../utils/WorkflowRequest"
+import { MethodAuthentication } from "../../utils/Decorators"
 
 export interface UploadFileAttachmentProperties {
   document_id:  number

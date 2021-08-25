@@ -1,10 +1,8 @@
-import { CredentialsObject } from './Credentials';
-import { MethodAuthentication } from '../utils/Decorators';
-import { WorkflowRequest } from '../utils/WorkflowRequest';
+import { CredentialsObject } from './../Credentials';
+import { MethodAuthentication } from '../../utils/Decorators';
+import { WorkflowRequest } from '../../utils/WorkflowRequest/';
+import { IdProperty } from '..';
 
-export interface IdProperty {
-  id: number
-}
 export interface CreateDocumentProperties {
   status_id: number
   product_id: number

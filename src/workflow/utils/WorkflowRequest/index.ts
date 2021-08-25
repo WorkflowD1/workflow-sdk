@@ -1,6 +1,6 @@
 import request, { AxiosPromise } from 'axios'
 
-import { Credentials, CredentialsConfig, CredentialsObject } from '../api';
+import { Credentials, CredentialsConfig, CredentialsObject } from '../../api';
 
 export interface Token {
   token: string,

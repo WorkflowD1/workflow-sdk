@@ -1,5 +1,6 @@
 import { ClientOpts } from 'redis'
-import { Redis, WorkflowRequest } from '../utils'
+import { WorkflowRequest } from '../../utils/WorkflowRequest'
+import { Redis } from '../../utils/Redis'
 export interface CredentialsConfig {
   email: string
   password: string

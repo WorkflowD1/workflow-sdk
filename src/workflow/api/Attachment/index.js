@@ -15,43 +15,43 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Document = void 0;
-const Decorators_1 = require("../utils/Decorators");
-const WorkflowRequest_1 = require("../utils/WorkflowRequest");
-let Document = class Document extends WorkflowRequest_1.WorkflowRequest {
+exports.Attachment = void 0;
+const WorkflowRequest_1 = require("../../utils/WorkflowRequest");
+const Decorators_1 = require("../../utils/Decorators");
+let Attachment = class Attachment extends WorkflowRequest_1.WorkflowRequest {
     constructor(baseURL, credentialsObject) {
         super(baseURL, credentialsObject);
     }
-    create(document, credentialsKey) {
+    uploadFile(attachment, credentialsKey) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { status, data } = yield this.documentCreate(document);
+            const { status, data } = yield this.attachmentUploadFile(attachment);
             return {
                 status,
                 data
             };
         });
     }
-    update(document, credentialsKey) {
+    update(attachment, credentialsKey) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { status, data } = yield this.documentUpdate(document);
+            const { status, data } = yield this.attachmentUpdateById(attachment);
             return {
                 status,
                 data
             };
         });
     }
-    load(document, credentialsKey) {
+    createPendency(pendency, credentialsKey) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { status, data } = yield this.documentLoad(document);
+            const { status, data } = yield this.attachmentCreatePendency(pendency);
             return {
                 status,
                 data
             };
         });
     }
-    loadById(document, credentialsKey) {
+    loadPendency(pendency, credentialsKey) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { status, data } = yield this.documentLoadById(document);
+            const { status, data } = yield this.attachmentLoadPendency(pendency);
             return {
                 status,
                 data
@@ -59,7 +59,7 @@ let Document = class Document extends WorkflowRequest_1.WorkflowRequest {
         });
     }
 };
-Document = __decorate([
+Attachment = __decorate([
     Decorators_1.MethodAuthentication()
-], Document);
-exports.Document = Document;
+], Attachment);
+exports.Attachment = Attachment;
