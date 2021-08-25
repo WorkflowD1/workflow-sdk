@@ -68,12 +68,6 @@ var Credentials = /** @class */ (function () {
             this.redis = utils_1.Redis.getInstance(redisClientOptions, key);
         }
     }
-    Credentials.getInstance = function (credentials, options) {
-        if (!Credentials.instance) {
-            Credentials.instance = new Credentials(credentials, options);
-        }
-        return Credentials.instance;
-    };
     Credentials.prototype.getToken = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b, token, expiration;

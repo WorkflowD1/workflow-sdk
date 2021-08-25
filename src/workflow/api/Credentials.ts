@@ -1,5 +1,5 @@
-import { ClientOpts } from "redis"
-import { Redis, WorkflowRequest } from "../utils"
+import { ClientOpts } from 'redis'
+import { Redis, WorkflowRequest } from '../utils'
 export interface CredentialsConfig {
   email: string
   password: string
@@ -20,8 +20,6 @@ export class Credentials {
 
   private redis?: Redis
 
-  private static instance: Credentials
-
   /**
    * 
    * @param email workflows.d1.cx email 
@@ -39,13 +37,6 @@ export class Credentials {
       const { key, ...redisClientOptions } = redis
       this.redis = Redis.getInstance(redisClientOptions, key)
     }
-  }
-
-  public static getInstance(credentials: CredentialsConfig, options: CredentialsOptions): Credentials {
-    if (!Credentials.instance) {
-      Credentials.instance = new Credentials(credentials, options)
-    }
-    return Credentials.instance
   }
 
   public async getToken(): Promise<string> {
