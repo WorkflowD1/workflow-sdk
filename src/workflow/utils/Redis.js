@@ -51,7 +51,32 @@ var Redis = /** @class */ (function () {
         return Redis.instance;
     };
     Redis.prototype.retrieveToken = function () {
-        return this.getRedisKeyAsync();
+        return __awaiter(this, void 0, void 0, function () {
+            var token;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getRedisKeyAsync()];
+                    case 1:
+                        token = _a.sent();
+                        return [2 /*return*/, token];
+                }
+            });
+        });
+    };
+    Redis.prototype.updateToken = function (token, expiration) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.setRedisTokenAsync(token)];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.expireRedisTokenAsync(expiration)];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     Redis.prototype.hasToken = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -66,13 +91,18 @@ var Redis = /** @class */ (function () {
             });
         });
     };
-    Redis.prototype.updateToken = function (token, expiration) {
-        this.client.set(this.key, token);
-        this.client.expire(this.key, expiration);
-    };
     Redis.prototype.getRedisKeyAsync = function () {
         var getAsync = util_1.promisify(this.client.get).bind(this.client);
         return getAsync(this.key);
+    };
+    Redis.prototype.setRedisTokenAsync = function (token) {
+        var setAsync = util_1.promisify(this.client.set).bind(this.client);
+        return setAsync(this.key, token);
+    };
+    Redis.prototype.expireRedisTokenAsync = function (expiration) {
+        var expireToken = util_1.promisify(this.client.expire).bind(this.client);
+        var seconds = expiration - Math.floor(new Date().getTime() / 1000);
+        return expireToken(this.key, seconds);
     };
     return Redis;
 }());
