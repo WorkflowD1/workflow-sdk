@@ -15,8 +15,14 @@ export interface LoadDocumentProperties {
 
 export class Document {
 
+  private baseURL: string
+
+  constructor(baseURL: string) {
+    this.baseURL = baseURL.replace(/\/$/, '')
+  }
+
   public async create(document: CreateDocumentProperties, token: string) {
-    const { status, data } = await WorkflowRequest.documentCreate(document, token)
+    const { status, data } = await WorkflowRequest.documentCreate(document, token, this.baseURL)
     return {
       status,
       data
@@ -24,7 +30,7 @@ export class Document {
   }
 
   public async update(document: UpdateDocumentProperties, token: string) {
-    const { data } = await WorkflowRequest.documentUpdate(document, token)
+    const { data } = await WorkflowRequest.documentUpdate(document, token, this.baseURL)
     return {
       status,
       data
@@ -32,7 +38,7 @@ export class Document {
   }
 
   public async load(document: UpdateDocumentProperties, token: string) {
-    const { status, data } = await WorkflowRequest.documentLoad(document, token)
+    const { status, data } = await WorkflowRequest.documentLoad(document, token, this.baseURL)
     return {
       status,
       data

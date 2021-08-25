@@ -39,14 +39,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Document = void 0;
 var utils_1 = require("../utils");
 var Document = /** @class */ (function () {
-    function Document() {
+    function Document(baseURL) {
+        this.baseURL = baseURL.replace(/\/$/, '');
     }
     Document.prototype.create = function (document, token) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, status, data;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, utils_1.WorkflowRequest.documentCreate(document, token)];
+                    case 0: return [4 /*yield*/, utils_1.WorkflowRequest.documentCreate(document, token, this.baseURL)];
                     case 1:
                         _a = _b.sent(), status = _a.status, data = _a.data;
                         return [2 /*return*/, {
@@ -62,7 +63,7 @@ var Document = /** @class */ (function () {
             var data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, utils_1.WorkflowRequest.documentUpdate(document, token)];
+                    case 0: return [4 /*yield*/, utils_1.WorkflowRequest.documentUpdate(document, token, this.baseURL)];
                     case 1:
                         data = (_a.sent()).data;
                         return [2 /*return*/, {
@@ -78,7 +79,7 @@ var Document = /** @class */ (function () {
             var _a, status, data;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, utils_1.WorkflowRequest.documentLoad(document, token)];
+                    case 0: return [4 /*yield*/, utils_1.WorkflowRequest.documentLoad(document, token, this.baseURL)];
                     case 1:
                         _a = _b.sent(), status = _a.status, data = _a.data;
                         return [2 /*return*/, {

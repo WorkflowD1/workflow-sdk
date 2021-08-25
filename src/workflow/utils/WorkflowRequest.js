@@ -10,7 +10,6 @@ var WorkflowRequest = /** @class */ (function () {
     }
     WorkflowRequest.signIn = function (_a) {
         var email = _a.email, password = _a.password, baseURL = _a.baseURL;
-        WorkflowRequest.baseURL = baseURL;
         return axios_1.default({
             baseURL: baseURL,
             url: '/cognito/user/signIn',
@@ -21,9 +20,9 @@ var WorkflowRequest = /** @class */ (function () {
             }
         });
     };
-    WorkflowRequest.documentCreate = function (data, token) {
+    WorkflowRequest.documentCreate = function (data, token, baseURL) {
         return axios_1.default({
-            baseURL: WorkflowRequest.baseURL,
+            baseURL: baseURL,
             url: '/document/create',
             method: 'POST',
             headers: {
@@ -32,9 +31,9 @@ var WorkflowRequest = /** @class */ (function () {
             data: data
         });
     };
-    WorkflowRequest.documentUpdate = function (data, token) {
+    WorkflowRequest.documentUpdate = function (data, token, baseURL) {
         return axios_1.default({
-            baseURL: WorkflowRequest.baseURL,
+            baseURL: baseURL,
             url: '/document/updateById',
             method: 'POST',
             headers: {
@@ -43,9 +42,9 @@ var WorkflowRequest = /** @class */ (function () {
             data: data
         });
     };
-    WorkflowRequest.documentLoad = function (data, token) {
+    WorkflowRequest.documentLoad = function (data, token, baseURL) {
         return axios_1.default({
-            baseURL: WorkflowRequest.baseURL,
+            baseURL: baseURL,
             url: '/document/filter',
             method: 'POST',
             headers: {

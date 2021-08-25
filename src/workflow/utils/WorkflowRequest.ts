@@ -9,12 +9,7 @@ export interface Token {
 
 export class WorkflowRequest {
 
-  public static baseURL: string
-
   public static signIn({ email, password, baseURL }: CredentialsConfig): AxiosPromise<Token> {
-    
-    WorkflowRequest.baseURL = baseURL
-
     return request({
       baseURL,
       url: '/cognito/user/signIn',
@@ -26,9 +21,9 @@ export class WorkflowRequest {
     })
   }
 
-  public static documentCreate(data: any, token: string) {
+  public static documentCreate(data: any, token: string, baseURL: string) {
     return request({
-      baseURL: WorkflowRequest.baseURL,
+      baseURL,
       url: '/document/create',
       method: 'POST',
       headers: {
@@ -38,9 +33,9 @@ export class WorkflowRequest {
     })
   }
 
-  public static documentUpdate(data: any,  token: string) {
+  public static documentUpdate(data: any,  token: string, baseURL: string) {
     return request({
-      baseURL: WorkflowRequest.baseURL,
+      baseURL,
       url: '/document/updateById',
       method: 'POST',
       headers: {
@@ -50,9 +45,9 @@ export class WorkflowRequest {
     })
   }
 
-  public static documentLoad(data: any,  token: string) {
+  public static documentLoad(data: any,  token: string, baseURL: string) {
     return request({
-      baseURL: WorkflowRequest.baseURL,
+      baseURL,
       url: '/document/filter',
       method: 'POST',
       headers: {
