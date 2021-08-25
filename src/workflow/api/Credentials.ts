@@ -12,6 +12,11 @@ export interface CredentialsOptions {
   }
 }
 
+export interface CredentialsObject {
+  default: Credentials
+  [key: string]: Credentials
+}
+
 export class Credentials {
 
   private email: string
@@ -27,7 +32,7 @@ export class Credentials {
    * @param baseURL workflows.d1.cx url without last forward slash
    * @returns This methods return Workflow credentials token
    */
-  private constructor({ email, password, baseURL }: CredentialsConfig, options: CredentialsOptions | null) {
+  constructor({ email, password, baseURL }: CredentialsConfig, options: CredentialsOptions | null) {
     this.email = email
     this.password = password
     this.baseURL = baseURL.replace(/\/$/, '')

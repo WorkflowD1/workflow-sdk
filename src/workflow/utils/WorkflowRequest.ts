@@ -1,21 +1,21 @@
 import request, { AxiosPromise } from 'axios'
 
-import { CredentialsConfig } from '..';
-import { Credentials } from '../api';
+import { Credentials, CredentialsConfig, CredentialsObject } from '../api';
 
 export interface Token {
   token: string,
   expiration: number
 }
+export abstract class WorkflowRequest {
 
-export class WorkflowRequest {
+  protected baseURL: string
+  protected currentCredentials!: Credentials
+  protected readonly credentialsObject: CredentialsObject
 
-  private baseURL: string
-  private credentials: Credentials
-
-  constructor(baseURL: string, credentials: Credentials) {
+  constructor(baseURL: string, credentialsObject: CredentialsObject) {
     this.baseURL = baseURL
-    this.credentials = credentials
+    this.credentialsObject = credentialsObject
+    this.currentCredentials = credentialsObject.default
   }
 
   public static signIn({ email, password, baseURL }: CredentialsConfig): AxiosPromise<Token> {
@@ -63,7 +63,7 @@ export class WorkflowRequest {
   }
 
   private async request(url: string, data: any) {
-    const token = await this.credentials.getToken()
+    const token = await this.currentCredentials.getToken()
     return request({
       baseURL: this.baseURL,
       url,
