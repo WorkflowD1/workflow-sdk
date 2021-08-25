@@ -55,6 +55,12 @@ class WorkflowRequest {
     attachmentLoadPendency(data) {
         return this.request('/attachment/loadPendency', data);
     }
+    observationCreate(data) {
+        return this.request('/observation/create', data);
+    }
+    observationDeleteById(data) {
+        return this.request('/observation/deleteById', data);
+    }
     request(url, data) {
         return __awaiter(this, void 0, void 0, function* () {
             const token = yield this.currentCredentials.getToken();

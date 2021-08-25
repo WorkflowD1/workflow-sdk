@@ -13,3 +13,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./Credentials/"), exports);
 __exportStar(require("./Document/"), exports);
 __exportStar(require("./Attachment/"), exports);
+__exportStar(require("./Observation/"), exports);

@@ -30,36 +30,44 @@ export abstract class WorkflowRequest {
     })
   }
 
-  public documentCreate(data: any) {
+  protected documentCreate(data: any) {
     return this.request('/document/create', data)
   }
 
-  public documentUpdate(data: any) {
+  protected documentUpdate(data: any) {
     return this.request('/document/updateById', data)
   }
 
-  public documentLoad(data: any) {
+  protected documentLoad(data: any) {
     return this.request('/document/filter', data)
   }
 
-  public documentLoadById(data: any) {
+  protected documentLoadById(data: any) {
     return this.request('/document/loadById', data)
   }
 
-  public attachmentUploadFile(data: any) {
+  protected attachmentUploadFile(data: any) {
     return this.request('/attachment/upload/link', data)
   }
 
-  public attachmentUpdateById(data: any) {
+  protected attachmentUpdateById(data: any) {
     return this.request('/attachment/updateById', data)
   }
 
-  public attachmentCreatePendency(data: any) {
+  protected attachmentCreatePendency(data: any) {
     return this.request('/attachment/createPendency', data)
   }
 
-  public attachmentLoadPendency(data: any) {
+  protected attachmentLoadPendency(data: any) {
     return this.request('/attachment/loadPendency', data)
+  }
+
+  protected observationCreate(data: any) {
+    return this.request('/observation/create', data)
+  }
+
+  protected observationDeleteById(data: any) {
+    return this.request('/observation/deleteById', data)
   }
 
   private async request(url: string, data: any) {
