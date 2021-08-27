@@ -1,1 +1,1 @@
-export * from './Request'
+export * from './WorkflowRequest'
