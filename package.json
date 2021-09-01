@@ -6,7 +6,9 @@
   "scripts": {
     "prepare": "yarn run build",
     "build": "tsc",
-    "publish": "yarn publish --access public"
+    "publish": "yarn publish --access public",
+    "test": "node japaFile.js",
+    "coverage": "nyc npm run test"
   },
   "keywords": [
     "sdk",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@types/redis": "^2.8.31",
+    "@types/sinon": "^10.0.2",
     "@typescript-eslint/eslint-plugin": "^4.29.3",
     "@typescript-eslint/parser": "^4.29.3",
     "eslint": "^7.32.0",
@@ -32,7 +35,11 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.1",
     "eslint-plugin-prettier": "^3.4.1",
-    "prettier": "^2.3.2"
+    "japa": "^3.1.1",
+    "nyc": "^15.1.0",
+    "prettier": "^2.3.2",
+    "sinon": "^11.1.2",
+    "ts-node": "^10.2.1"
   },
   "repository": {
     "type": "git",
