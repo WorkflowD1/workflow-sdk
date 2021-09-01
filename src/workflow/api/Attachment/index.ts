@@ -13,7 +13,7 @@ export interface UploadFileAttachmentProperties {
 	send_attachment:  boolean
 }
 
-export interface UpdateAttachmentProperties extends IdProperty {}
+export interface UpdateAttachmentProperties extends Partial<UploadFileAttachmentProperties>, IdProperty  {}
 
 type Pendency = {
   document_id: number
@@ -32,11 +32,10 @@ export interface LoadPendencyProperties {
 
 @MethodAuthentication()
 export class Attachment extends WorkflowRequest {
-  constructor(baseURL: string, credentialsObject: CredentialsObject) {
-    super(baseURL, credentialsObject)
+  constructor(credentialsObject: CredentialsObject) {
+    super(credentialsObject)
   }
 
-  
   public async uploadFile(attachment: UploadFileAttachmentProperties, credentialsKey?: string) {
     const { status, data } = await this.attachmentUploadFile(attachment)
     return {

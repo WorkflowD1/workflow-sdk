@@ -16,8 +16,8 @@ export interface DeleteObservationProperties extends IdProperty { }
 @MethodAuthentication()
 export class Observation extends WorkflowRequest {
 
-  constructor(baseURL: string, credentialsObject: CredentialsObject) {
-    super(baseURL, credentialsObject)
+  constructor(credentialsObject: CredentialsObject) {
+    super(credentialsObject)
   }
 
   public async create(observation: CreateObservationProperties, credentialsKey?: string) {

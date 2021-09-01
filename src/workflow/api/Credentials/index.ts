@@ -22,18 +22,11 @@ export class Credentials {
 
   private email: string
   private password: string
-  private baseURL: string
-
   private redis?: Redis
 
-  /**
-   * 
-   * @param email workflows.d1.cx email 
-   * @param password workflows.d1.cx password
-   * @param baseURL workflows.d1.cx url without last forward slash
-   * @returns This methods return Workflow credentials token
-   */
-  constructor({ email, password, baseURL }: CredentialsConfig, options: CredentialsOptions | null) {
+  public baseURL: string
+
+  constructor({ email, password, baseURL }: CredentialsConfig, options?: CredentialsOptions | null) {
     this.email = email
     this.password = password
     this.baseURL = baseURL.replace(/\/$/, '')
@@ -45,6 +38,9 @@ export class Credentials {
     }
   }
 
+  /**
+   * @returns valid token
+   */
   public async getToken(): Promise<string> {
     if (this.redis && await this.isTokenValid()) {
       return this.redis.retrieveToken()
@@ -54,6 +50,9 @@ export class Credentials {
     return token
   }
 
+  /**
+   * @returns if Redis token is still valid
+   */
   private async isTokenValid(): Promise<boolean> {
     if (this.redis && await this.redis.hasToken()) {
       return true
@@ -61,6 +60,10 @@ export class Credentials {
     return false
   }
 
+  /**
+   * @param token Token to be set on redis
+   * @param expiration Redis key expiration time
+   */
   private async setToken(token: string, expiration: number): Promise<void> {
     if (this.redis) {
       await this.redis.updateToken(token, expiration)

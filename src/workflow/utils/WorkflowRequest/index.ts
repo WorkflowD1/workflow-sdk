@@ -8,12 +8,10 @@ export interface Token {
 }
 export abstract class WorkflowRequest {
 
-  protected baseURL: string
   protected currentCredentials!: Credentials
   protected readonly credentialsObject: CredentialsObject
 
-  constructor(baseURL: string, credentialsObject: CredentialsObject) {
-    this.baseURL = baseURL
+  constructor(credentialsObject: CredentialsObject) {
     this.credentialsObject = credentialsObject
     this.currentCredentials = credentialsObject.default
   }
@@ -73,7 +71,7 @@ export abstract class WorkflowRequest {
   private async request(url: string, data: any) {
     const token = await this.currentCredentials.getToken()
     return request({
-      baseURL: this.baseURL,
+      baseURL: this.currentCredentials.baseURL,
       url,
       method: 'POST',
       headers: {

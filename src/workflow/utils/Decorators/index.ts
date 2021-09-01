@@ -1,3 +1,9 @@
+/**
+ * 
+ * @param methodsToRemove Array of methods that will not be decorated
+ * @returns Concat a function on method to update currentCredentials property
+ */
+
 export function MethodAuthentication(methodsToRemove?: string[]) {
 
   function updateCredentials(instance: any, credentialKey: string) {
@@ -10,16 +16,16 @@ export function MethodAuthentication(methodsToRemove?: string[]) {
     const classMethods = Object.getOwnPropertyNames(target.prototype)
 
     classMethods.forEach(targetMethod => {
-    
+
       if (!['constructor', ...(methodsToRemove || [])].find(mappedMethod => targetMethod === mappedMethod)) {
-    
+
         const oldFunction: Function = target.prototype[targetMethod];
-    
+
         target.prototype[targetMethod] = function () {
           updateCredentials(this, arguments[1]);
           return oldFunction.apply(this, arguments);
         }
-        
+
       }
     })
   }

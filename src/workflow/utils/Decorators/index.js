@@ -1,4 +1,9 @@
 "use strict";
+/**
+ *
+ * @param methodsToRemove Array of methods that will not be decorated
+ * @returns Concat a function on method to update currentCredentials property
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MethodAuthentication = void 0;
 function MethodAuthentication(methodsToRemove) {

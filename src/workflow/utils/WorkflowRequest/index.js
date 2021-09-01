@@ -15,8 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.WorkflowRequest = void 0;
 const axios_1 = __importDefault(require("axios"));
 class WorkflowRequest {
-    constructor(baseURL, credentialsObject) {
-        this.baseURL = baseURL;
+    constructor(credentialsObject) {
         this.credentialsObject = credentialsObject;
         this.currentCredentials = credentialsObject.default;
     }
@@ -65,7 +64,7 @@ class WorkflowRequest {
         return __awaiter(this, void 0, void 0, function* () {
             const token = yield this.currentCredentials.getToken();
             return axios_1.default({
-                baseURL: this.baseURL,
+                baseURL: this.currentCredentials.baseURL,
                 url,
                 method: 'POST',
                 headers: {

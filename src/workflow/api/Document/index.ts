@@ -14,7 +14,7 @@ export interface CreateDocumentProperties {
   [key: string]: any
 }
 
-export interface UpdateDocumentProperties extends CreateDocumentProperties, IdProperty { }
+export interface UpdateDocumentProperties extends Partial<CreateDocumentProperties>, IdProperty { }
 
 export interface LoadDocumentProperties {
   modality_identifier?: string[],
@@ -33,8 +33,8 @@ export interface LoadDocumentProperties {
 @MethodAuthentication()
 export class Document extends WorkflowRequest {
   
-  constructor(baseURL: string, credentialsObject: CredentialsObject) {
-    super(baseURL, credentialsObject)
+  constructor(credentialsObject: CredentialsObject) {
+    super(credentialsObject)
   }
   
   public async create(document: CreateDocumentProperties, credentialsKey?: string) {

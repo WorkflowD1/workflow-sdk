@@ -19,8 +19,8 @@ exports.Attachment = void 0;
 const utils_1 = require("../../utils");
 const Decorators_1 = require("../../utils/Decorators");
 let Attachment = class Attachment extends utils_1.WorkflowRequest {
-    constructor(baseURL, credentialsObject) {
-        super(baseURL, credentialsObject);
+    constructor(credentialsObject) {
+        super(credentialsObject);
     }
     uploadFile(attachment, credentialsKey) {
         return __awaiter(this, void 0, void 0, function* () {
