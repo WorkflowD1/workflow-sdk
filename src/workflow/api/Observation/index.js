@@ -19,8 +19,8 @@ exports.Observation = void 0;
 const Decorators_1 = require("../../utils/Decorators");
 const utils_1 = require("../../utils");
 let Observation = class Observation extends utils_1.WorkflowRequest {
-    constructor(baseURL, credentialsObject) {
-        super(baseURL, credentialsObject);
+    constructor(credentialsObject) {
+        super(credentialsObject);
     }
     create(observation, credentialsKey) {
         return __awaiter(this, void 0, void 0, function* () {

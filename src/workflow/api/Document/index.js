@@ -19,8 +19,8 @@ exports.Document = void 0;
 const Decorators_1 = require("../../utils/Decorators");
 const utils_1 = require("../../utils");
 let Document = class Document extends utils_1.WorkflowRequest {
-    constructor(baseURL, credentialsObject) {
-        super(baseURL, credentialsObject);
+    constructor(credentialsObject) {
+        super(credentialsObject);
     }
     create(document, credentialsKey) {
         return __awaiter(this, void 0, void 0, function* () {

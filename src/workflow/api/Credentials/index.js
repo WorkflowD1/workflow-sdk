@@ -24,13 +24,6 @@ exports.Credentials = void 0;
 const utils_1 = require("../../utils");
 const common_1 = require("../../../common");
 class Credentials {
-    /**
-     *
-     * @param email workflows.d1.cx email
-     * @param password workflows.d1.cx password
-     * @param baseURL workflows.d1.cx url without last forward slash
-     * @returns This methods return Workflow credentials token
-     */
     constructor({ email, password, baseURL }, options) {
         this.email = email;
         this.password = password;
@@ -41,6 +34,9 @@ class Credentials {
             this.redis = common_1.Redis.getInstance(redisClientOptions, key);
         }
     }
+    /**
+     * @returns valid token
+     */
     getToken() {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.redis && (yield this.isTokenValid())) {
@@ -51,6 +47,9 @@ class Credentials {
             return token;
         });
     }
+    /**
+     * @returns if Redis token is still valid
+     */
     isTokenValid() {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.redis && (yield this.redis.hasToken())) {
@@ -59,6 +58,10 @@ class Credentials {
             return false;
         });
     }
+    /**
+     * @param token Token to be set on redis
+     * @param expiration Redis key expiration time
+     */
     setToken(token, expiration) {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.redis) {
