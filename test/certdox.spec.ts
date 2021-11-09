@@ -1,38 +1,9 @@
 import test from 'japa';
 import sinon from 'sinon';
-import { Certdox, CertdoxCredentialsObject } from '../src';
-import { CertdoxCredentials } from '../index';
+import { Certdox } from '../src';
 import { CertdoxRequest } from '../src/certdox/utils';
 
 const token = 'tokenteste';
-
-test.group('CertDox Integration', (group) => {
-  group.before(() => {
-    sinon.mock(CertdoxCredentials.prototype).expects('getToken').returns(token);
-  });
-
-  group.after(() => {
-    sinon.restore();
-  });
-
-  test('Should test credentials constructor', (assert) => {
-    assert.doesNotThrow(() => {
-      new CertdoxCredentials({ login: '', password: '' });
-    });
-  });
-
-  test('Should test credentials constructor with redis config', (assert) => {
-    const redis = { host: '', port: '' } as any;
-    assert.doesNotThrow(() => {
-      new CertdoxCredentials({ login: '', password: '' }, { redis: redis });
-    });
-  });
-
-  test('Should test getToken function', async (assert) => {
-    const credential = new CertdoxCredentials({ login: '', password: '' });
-    assert.deepEqual(await credential.getToken(), token);
-  });
-});
 
 test.group('CertDox Request', (group) => {
   const mockRequest = (response: any) => {
@@ -40,19 +11,12 @@ test.group('CertDox Request', (group) => {
     return response;
   };
 
-  group.beforeEach(() => {
-    sinon.mock(CertdoxCredentials.prototype).expects('getToken').returns(token);
-  });
-
   group.afterEach(() => {
     sinon.restore();
   });
 
-  const credentialsObject: CertdoxCredentialsObject = {
-    default: new CertdoxCredentials({ login: '', password: '' }),
-  };
-
-  const certdox = new Certdox(credentialsObject);
+  const apiKey = 'some_api_key_here'
+  const certdox = new Certdox(apiKey);
 
   test('Should call ask for Voucher property', async (assert) => {
     const response = mockRequest({
