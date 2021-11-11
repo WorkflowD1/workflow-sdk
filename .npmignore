@@ -1,0 +1,8 @@
+src/
+test/
+.eslintrc.json
+.gitignore
+.prettierrc.json
+japaFile.js
+tsconfig.json
+node_modules
