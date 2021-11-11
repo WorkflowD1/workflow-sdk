@@ -1,4 +1,4 @@
-import { Credentials } from '../index'
+import { Credentials } from '../src'
 import test from 'japa'
 import sinon, { assert } from 'sinon'
 import { WorkflowRequest } from '../src/workflow/utils'
