@@ -1,8 +1,8 @@
 {
   "name": "@workflowd1/workflow-sdk",
-  "version": "1.1.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "version": "2.0.0",
+  "main": ".build/index.js",
+  "types": ".build/index.d.ts",
   "scripts": {
     "prepare": "yarn run build",
     "build": "tsc",

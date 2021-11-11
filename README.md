@@ -141,6 +141,68 @@ const createObservation = await workflowHandler.observation.create(createParams)
 const deleteObservation = await workflowHandler.observation.delete({ id: idToDelete })
 ```
 
+## CertDox
+You can you CertDox integration easily in your codes just instantiating it. Follow the example below:
+```javascript
+const { Certdox } = require('@workflowd1/workflow-sdk')
+
+const certdox = new Certdox('your_api_key_here')
+```
+
+### Voucher
+
+* ask
+```javascript
+const data = [
+  {
+    tipoCombo: "1",
+    idDocumento: "10101010",
+    nome: "Nome",
+    cpfCnpj: "000.000.000-00",
+    cidade: "São Paulo",
+    uf: "SP",
+    nomeMae: "Nome da Mãe",
+    nomePai: "Nome do Pai",
+    rg: "99999999",
+    dataNascimento: "10-10-1900",
+    informacoesAdicionais: "Informações adicionais"
+  }
+]
+
+const res = await certdox.voucher.ask(data)
+```
+
+### Register
+
+* ask
+```javascript
+const data = {
+  tipoCombo: "1",
+  idDocumento: "10101010",
+  cartorio: "Nome do Cartorio",
+  cidade: "São Paulo",
+  uf: "SP",
+  numeroContrato: "123123123",
+  partes: [
+    {
+      nome: "Nome da parte",
+      cpf: "000.000.000-00",
+      tipoDocumento: "RG"
+    }
+  ],
+  documentos: [
+    {
+      tipoDocumento: "CPF",
+      urlDocumento: "https://url-do-documento/documento.pdf"
+    }
+  ],
+  informacoesAdicionais: "Informações adicionais"
+}
+
+const res = await certdox.register.ask(data)
+```
+
+
 ## Common
 
 There is some classes that can be used by any other module or consumer. They are called 'Common'.

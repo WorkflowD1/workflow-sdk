@@ -6,3 +6,11 @@ yarn.lock
 
 #test
 .nyc_output
+
+#ignorejs
+index.js
+/src/*.js
+
+.env
+
+.build/
