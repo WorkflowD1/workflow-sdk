@@ -8,7 +8,7 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./.build",
-    "rootDir": "."
+    "outDir": "./build",
+    "rootDir": "./src"
   }
 }

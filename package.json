@@ -1,12 +1,11 @@
 {
   "name": "@workflowd1/workflow-sdk",
-  "version": "2.0.0",
-  "main": ".build/index.js",
-  "types": ".build/index.d.ts",
+  "version": "2.0.10",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
     "prepare": "yarn run build",
     "build": "tsc",
-    "publish": "yarn publish --access public",
     "test": "node japaFile.js",
     "coverage": "nyc npm run test"
   },
