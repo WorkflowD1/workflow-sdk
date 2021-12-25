@@ -68,6 +68,10 @@ export abstract class WorkflowRequest {
     return this.request('/observation/deleteById', data)
   }
 
+  protected statusLoadTransition(data: any) {
+    return this.request('/status/loadStatusTransition', data)
+  }
+
   private async request(url: string, data: any) {
     const token = await this.currentCredentials.getToken()
     return request({
