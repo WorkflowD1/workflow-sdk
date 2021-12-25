@@ -6,6 +6,7 @@ import { CredentialsObject, IdProperty, Workflow } from '../src'
 import { CreateDocumentProperties, LoadDocumentProperties, UpdateDocumentProperties } from '../src/workflow/api/Document'
 import { CreateObservationProperties, DeleteObservationProperties } from '../src/workflow/api/Observation'
 import { CreatePendencyProperties, LoadPendencyProperties, UpdateAttachmentProperties, UploadFileAttachmentProperties } from '../src/workflow/api/Attachment'
+import { LoadStatusTransitionProperties } from '../src/workflow/api/Status'
 
 const baseURL = 'https://'
 const token = 'token1'
@@ -255,5 +256,21 @@ test.group('WorkflowRequest', (group) => {
     assert.deepEqual(attachment.status, response.status)
     assert.deepEqual(attachment.data, response.data)
     assert.deepEqual(attachment, response)
+  })
+
+  test('Should call loadTransition for Status property', async (assert) => {
+    const request: LoadStatusTransitionProperties = {
+      products: [1]
+    }
+
+    const response = mockRequest({
+      status: 200,
+      data: request
+    })
+
+    const transitions = await workflow.status.loadTransition(request)
+
+    assert.deepEqual(transitions.status, response.status)
+    assert.deepEqual(transitions.data, response.data)
   })
 })
