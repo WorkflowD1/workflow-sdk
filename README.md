@@ -201,6 +201,18 @@ const data = {
 
 const res = await certdox.register.ask(data)
 ```
+### Requirements
+
+* ask
+```javascript
+const data = {
+    idPedido: "10101010",
+    idSmarkio: "20202020",
+    textoSolucao: "Texto contendo teste"
+}
+
+const res = await certdox.requirements.ask(data)
+```
 
 
 ## Common

@@ -17,6 +17,10 @@ export abstract class CertdoxRequest {
     return this.request('/registro', data);
   }
 
+  protected requestRequirements(data: any) {
+    return this.request('/exigencia', data);
+  }
+
   private async request(url: string, data: any) {
     return request({
       baseURL: this.baseUrl,
