@@ -50,4 +50,19 @@ test.group('CertDox Request', (group) => {
     assert.deepEqual(register.data, response.data);
     assert.deepEqual(register, response);
   });
+
+  test('Should call ask for Requirements property', async (assert) => {
+    const response = mockRequest({
+      status: 200,
+      data: {
+        status: 201,
+        Descricao: "Pedido não está em Status de Exigência"
+      },
+    });
+
+    const requirements = await certdox.requirements.ask(response.data);
+    assert.deepEqual(requirements.status, response.status);
+    assert.deepEqual(requirements.data, response.data);
+    assert.deepEqual(requirements, response);
+  });
 });
