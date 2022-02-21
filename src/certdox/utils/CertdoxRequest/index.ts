@@ -2,11 +2,13 @@ import request from 'axios';
 
 export abstract class CertdoxRequest {
   private apiKey: string;
-  private baseUrl: string;
+  private baseUrlDev: string;
+  private baseUrlProd: string;
 
   constructor(apiKey: string) {
     this.apiKey = apiKey;
-    this.baseUrl = 'https://gw-homolog.cdxti.com.br/smarkioapp/v1';
+    this.baseUrlDev = 'https://gw-homolog.cdxti.com.br/smarkioapp/v1';
+    this.baseUrlProd = 'https://gw.cdxti.com.br/smarkioapp/v1';
   }
 
   protected requestVoucher(data: any) {
@@ -23,7 +25,7 @@ export abstract class CertdoxRequest {
 
   private async request(url: string, data: any) {
     return request({
-      baseURL: this.baseUrl,
+      baseURL: data.env === 'dev' ? this.baseUrlDev : this.baseUrlProd,
       url,
       method: 'POST',
       headers: {
