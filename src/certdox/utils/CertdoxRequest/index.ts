@@ -6,7 +6,8 @@ export abstract class CertdoxRequest {
 
   constructor(apiKey: string) {
     this.apiKey = apiKey;
-    this.baseUrl = 'https://gw-homolog.cdxti.com.br/smarkioapp/v1';
+    // this.baseUrl = 'https://gw-homolog.cdxti.com.br/smarkioapp/v1';
+    this.baseUrl = 'https://gw.cdxti.com.br/smarkioapp/v1';
   }
 
   protected requestVoucher(data: any) {
