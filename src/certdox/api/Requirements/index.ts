@@ -3,7 +3,8 @@ import { CertdoxRequest } from '../../utils';
 export interface CreateRequirementsRequestProperties {
   idPedido: string,
   idSmarkio: string,
-  textoSolucao: string
+  textoSolucao: string,
+  urlDocumentos: Array<String>
 }
 
 export class Requirements extends CertdoxRequest {

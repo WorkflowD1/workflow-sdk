@@ -24,6 +24,9 @@ export abstract class CertdoxRequest {
   }
 
   private async request(url: string, data: any) {
+    let dataFiltered = data;
+    delete dataFiltered.env;
+
     return request({
       baseURL: data.env === 'dev' ? this.baseUrlDev : this.baseUrlProd,
       url,
@@ -31,7 +34,7 @@ export abstract class CertdoxRequest {
       headers: {
         apikey: this.apiKey,
       },
-      data,
+      data: dataFiltered,
     });
   }
 }
