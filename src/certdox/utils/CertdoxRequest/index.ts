@@ -24,14 +24,18 @@ export abstract class CertdoxRequest {
   }
 
   private async request(url: string, data: any) {
+    const baseURL = data.env === 'dev' ? this.baseUrlDev : this.baseUrlProd;
+    let dataFiltered = data;
+    delete dataFiltered.env;
+
     return request({
-      baseURL: data.env === 'dev' ? this.baseUrlDev : this.baseUrlProd,
+      baseURL,
       url,
       method: 'POST',
       headers: {
         apikey: this.apiKey,
       },
-      data,
+      data: dataFiltered,
     });
   }
 }
